@@ -1,0 +1,20 @@
+{
+    "version": "1.0.0",
+    "description": "fungible tokens for land exchange onchain",
+    "main": "index.js",
+    "name": "etherland-erc20",
+    "scripts": {
+        "build": "truffle compile && truffle-flattener contracts/Etherland.sol > build/Etherland.sol && truffle-flattener contracts/EtherlandSale.sol > build/EtherlandSale.sol"
+    },
+    "devDependencies": {
+        "dotenv": "^8.2.0",
+        "openzeppelin-solidity": "^3.0.1",
+        "prettier": "^2.0.5",
+        "truffle": "^5.1.28",
+        "truffle-flattener": "^1.4.4"
+    },
+    "dependencies": {
+        "@truffle/hdwallet-provider": "^1.2.0",
+        "web3": "^1.2.8"
+    }
+}
