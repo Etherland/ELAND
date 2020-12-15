@@ -1,6 +1,5 @@
     pragma solidity ^0.7.0;
 
-
     /**
     * @title Ownable
     * @dev The Ownable contract has an owner address, and provides basic authorization control
@@ -15,15 +14,6 @@
         address indexed previousOwner,
         address indexed newOwner
     );
-
-
-    /**
-    * @dev The Ownable constructor sets the original `owner` of the contract to the sender
-    * account.
-    */
-    constructor(address _owner) public {
-        owner = _owner;
-    }
 
     /**
     * @dev Throws if called by any account other than the owner.
@@ -61,4 +51,4 @@
         emit OwnershipTransferred(owner, _newOwner);
         owner = _newOwner;
     }
-    }
+}
