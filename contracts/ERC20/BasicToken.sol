@@ -17,9 +17,11 @@ contract BasicToken is ERC20Basic {
     uint256 internal totalSupply_;
 
     /**
-    * @dev Total number of tokens in existence
+    * @dev Total Supply
+    *   Represents the total available/in existence supply of ELAND
+    *   Will never be higher than the Maximum Supply
     */
-    function totalSupply() public view returns (uint256) {
+    function totalSupply() override public view returns (uint256) {
         return totalSupply_;
     }
 
@@ -28,7 +30,7 @@ contract BasicToken is ERC20Basic {
     * @param _to The address to transfer to.
     * @param _value The amount to be transferred.
     */
-    function transfer(address _to, uint256 _value) public returns (bool) {
+    function transfer(address _to, uint256 _value) override public returns (bool) {
         require(_value <= balances[msg.sender]);
         require(_to != address(0));
 
@@ -43,7 +45,7 @@ contract BasicToken is ERC20Basic {
     * @param _owner The address to query the the balance of.
     * @return An uint256 representing the amount owned by the passed address.
     */
-    function balanceOf(address _owner) public view returns (uint256) {
+    function balanceOf(address _owner) override public view returns (uint256) {
         return balances[_owner];
     }
 

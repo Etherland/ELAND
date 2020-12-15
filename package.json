@@ -4,7 +4,7 @@
     "main": "index.js",
     "name": "etherland-erc20",
     "scripts": {
-        "build": "truffle compile && truffle-flattener contracts/Etherland.sol > build/Etherland.sol && truffle-flattener contracts/EtherlandSale.sol > build/EtherlandSale.sol"
+        "build": "truffle compile && truffle-flattener contracts/Etherland.sol > build/Etherland.sol"
     },
     "devDependencies": {
         "dotenv": "^8.2.0",

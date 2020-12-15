@@ -1,12 +1,13 @@
 pragma solidity ^0.7.0;
 
 import "./BasicToken.sol";
-
+import '../libraries/SafeMath.sol';
 /**
 * @title Burnable Token
 * @dev Token that can be irreversibly burned (destroyed).
 */
 contract BurnableToken is BasicToken {
+    using SafeMath for uint256;
 
     event Burn(address indexed burner, uint256 value);
 
@@ -20,8 +21,6 @@ contract BurnableToken is BasicToken {
 
     function _burn(address _who, uint256 _value) internal {
         require(_value <= balances[_who]);
-        // no need to require value <= totalSupply, since that would imply the
-        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         balances[_who] = balances[_who].sub(_value);
         totalSupply_ = totalSupply_.sub(_value);
