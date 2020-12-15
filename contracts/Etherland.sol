@@ -1,19 +1,27 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: GPL-3.0-only
 pragma solidity ^0.7.0;
 
 import './Ownable.sol';
 import './Pausable.sol';
 import './ERC20/MintableToken.sol';
 import './ERC20/BurnableToken.sol';
-import './utils/Utils.sol';
 import './libraries/SafeMath.sol';
+import "./ERC1822/Proxiable.sol";
+
 
 /**
 * @title Etherland
 * @dev Etherland fungible utility token
 */
-contract Etherland is MintableToken, Pausable, BurnableToken, Utils {
+contract Etherland is MintableToken, Pausable, BurnableToken, Proxiable {
     using SafeMath for uint256;
+    
+    /**
+    * @dev Contact initialization state
+    * initialized state is set upon construction
+    * MUST be initialized to be valid
+    */
+    bool public initialized = false;
 
     /**
     * @dev Etherland Token Identification
@@ -36,24 +44,35 @@ contract Etherland is MintableToken, Pausable, BurnableToken, Utils {
     uint256 public maximumSupply = 1e9 * 10 ** decimals;  
 
     /**
+    * @return amount representing _percent % of _amount
+    */
+    function percentOf(uint _total, uint _percent) internal pure returns(uint amount) {
+        amount = ((_total * _percent) / 100);
+    }
+
+    /**
     * @dev Erc20 standard Etherland token constructor
     * @param _owner address of the contract owner to set when migrating this contract
     */
-    constructor(address _owner, address _reserve, address _team) {
-        /* give ownership of the contract to _owner */
-        _transferOwnership(_owner);
-        // set wallets
-        team = _team;
-        reserve = _reserve;
-        /* supply partitioning */
-        // 20 percent of the supply goes to the reserve wallet 
-        mint(_reserve, percentOf(maximumSupply, 20));
-        // 10 percent of the supply goes to the team wallet
-        mint(_team, percentOf(maximumSupply, 10));
-        // 70 percent of the supply are kept by the owner
-        mint(_owner, percentOf(maximumSupply, 70));
-        // definitively terminate ELAND minting : total and circulating supply will never ever be higher than maximum supply
-        finishMinting();
+    function init(address _owner, address _reserve, address _team) public {
+        if (initialized != true) {
+            // initialize contract
+            initialized = true;
+            /* give ownership of the contract to _owner */
+            _transferOwnership(_owner);
+            // set wallets
+            team = _team;
+            reserve = _reserve;
+            /* supply partitioning */
+            // 20 percent of the supply goes to the reserve wallet 
+            mint(_reserve, percentOf(maximumSupply, 20));
+            // 10 percent of the supply goes to the team wallet
+            mint(_team, percentOf(maximumSupply, 10));
+            // 70 percent of the supply are kept by the owner
+            mint(_owner, percentOf(maximumSupply, 70));
+            // definitively terminate ELAND minting : total and circulating supply will never ever be higher than maximum supply
+            finishMinting();
+        }
     }
     
     /**
