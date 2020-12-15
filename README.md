@@ -19,10 +19,13 @@
 
 `Etherland.sol` flow:
 
-The total supply is pre-minted on contract initialization and maximum supply is made available
-Address of the contract owner is initialized by the contract constructor.
-	•	Owner can transfer tokens in the name of the contract
-	•	Token Supply is 1000000000 units (1 billion tokens)
+Upon Contract Construction:
+- Maximum supply is pre-minted 
+- Address of the contract owner is initialized
+- Supply is partionned and distributed to 3 different wallets :
+	- Team wallet : 10% of the maximum supply is allocated to the team
+	- Reserve : 20% of the maximum supply is allocated as a reserve
+	- Owner : 70% of the maximum supply is transfered and kept by the contract owner
 
 
 We cloned OpenZeppelin code for `SafeMath`, `Ownable`, `Burnable`, `Pausable` and `StandardToken` logic.

@@ -6,10 +6,10 @@ pragma solidity ^0.7.0;
 contract Utils {
 
     /**
-    * @return uint representing the amount computed by _percent% of _amount
+    * @return amount representing _percent % of _amount
     */
-    function percentOf(uint _total, uint _percent) internal pure returns(uint) {
-        return (_total * (_percent/100));
+    function percentOf(uint _total, uint _percent) public pure returns(uint amount) {
+        amount = ((_total * _percent) / 100);
     }
 
 }
