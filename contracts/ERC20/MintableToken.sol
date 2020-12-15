@@ -17,7 +17,7 @@ contract MintableToken is StandardToken {
     bool public mintingFinished = false;
    
     modifier canMint() {
-        require(!mintingFinished);
+        require(!mintingFinished, "denied : can't finish minting again");
         _;
     }
 

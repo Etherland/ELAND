@@ -52,17 +52,20 @@ contract Etherland is MintableToken, Pausable, BurnableToken, Utils {
         mint(_team, percentOf(maximumSupply, 10));
         // 70 percent of the supply are kept by the owner
         mint(_owner, percentOf(maximumSupply, 70));
-        // end ELAND token minting possibilities definitively
+        // definitively terminate ELAND minting : total and circulating supply will never ever be higher than maximum supply
         finishMinting();
     }
     
+    /**
+    * @dev Total circulating supply
+    * @return the number of circulating ELAND (totalSupply - team - reserve - owner)
+    */
     function circulatingSupply() public view returns(uint) {
-        // totalSupply - team - reserve - owner
         return (totalSupply() - balances[team] - balances[reserve] - balances[owner]);
     }
 
    /**
-    * @dev Transfer same ELAND value to multiple other addresses
+    * @dev Transfer ELAND value to multiple addresses
     * @param _to array of addresses to send value to
     * @param _value the ELAND value to transfer for each address
     */
@@ -76,6 +79,5 @@ contract Etherland is MintableToken, Pausable, BurnableToken, Utils {
         }
         return true;
     }
- 
 
 }

@@ -31,8 +31,8 @@ contract BasicToken is ERC20Basic {
     * @param _value The amount to be transferred.
     */
     function transfer(address _to, uint256 _value) override public returns (bool) {
-        require(_value <= balances[msg.sender]);
-        require(_to != address(0));
+        require(_value <= balances[msg.sender], "transferred value must be lower or equal to the sender's balance");
+        require(_to != address(0), "recipient can't be the zero address");
 
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);

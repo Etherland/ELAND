@@ -20,7 +20,7 @@ contract BurnableToken is BasicToken {
     }
 
     function _burn(address _who, uint256 _value) internal {
-        require(_value <= balances[_who]);
+        require(_value <= balances[_who], "amount to burn can't be higher than balance of sender");
 
         balances[_who] = balances[_who].sub(_value);
         totalSupply_ = totalSupply_.sub(_value);
