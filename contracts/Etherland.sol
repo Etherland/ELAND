@@ -1,14 +1,13 @@
 import './Ownable.sol';
-import './ERC20/MintableToken.sol';
 import './ERC20/BurnableToken.sol';
 import './libraries/SafeMath.sol';
 import "./ERC1822/Proxiable.sol";
-
+import './LANDID/LandRegistry.sol';
 /**
 * @title Etherland
 * @dev Etherland fungible utility token
 */
-contract Etherland is Ownable, MintableToken, BurnableToken, Proxiable {
+contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     using SafeMath for uint256;
     
     /**
@@ -58,15 +57,19 @@ contract Etherland is Ownable, MintableToken, BurnableToken, Proxiable {
         address _reserve, 
         address _team
     ) public {
-        /* skip if already initialized */
+      
         if (initialized != true) {
-            /* initialize contract */
+            /* 
+                initialize contract 
+            */
             initialized = true;
             
             /* give ownership of the contract to _owner */
             _transferOwnership(_owner);
             
-            /* set identifiers */
+            /* 
+                set identifiers 
+            */
             name = _name;
             symbol = _symbol;
             decimals = _decimals;
@@ -74,20 +77,24 @@ contract Etherland is Ownable, MintableToken, BurnableToken, Proxiable {
             /* set maximum supply to 1 Billion tokens */
             maximumSupply = 1e9 * 10 ** decimals;
             
-            /* set wallets */
+            /*
+                set wallets 
+            */
             team = _team;
             reserve = _reserve;
             
-            /* supply partitioning */
-            // 20 percent of the supply goes to the reserve wallet 
+            /* 
+                supply partitioning 
+                    - 20 percent of the supply goes to the reserve wallet
+                    - 10 percent of the supply goes to the team wallet
+                    - 70 percent of the supply are kept by the owner
+            */
             mint(_reserve, percentOf(maximumSupply, 20));
-            // 10 percent of the supply goes to the team wallet
             mint(_team, percentOf(maximumSupply, 10));
-            // 70 percent of the supply are kept by the owner
             mint(_owner, percentOf(maximumSupply, 70));
             
             /* 
-                Terminate ELAND minting definitively 
+                definitively end minting of ELAND token
                 total and circulating supply will never ever be higher than the maximum supply 
             */
             finishMinting();
@@ -117,6 +124,7 @@ contract Etherland is Ownable, MintableToken, BurnableToken, Proxiable {
     * @dev Transfer ELAND value to multiple addresses
     * @param _to array of addresses to send value to
     * @param _value the ELAND value to transfer for each address
+    * @return boolean indicating operation success
     */
     function batchTransfer(address[] memory _to, uint _value) public returns(bool) {
         uint ttlRecipients = _to.length;
@@ -126,6 +134,26 @@ contract Etherland is Ownable, MintableToken, BurnableToken, Proxiable {
             address recipient = _to[i];
             transfer(recipient, _value);
         }
+        return true;
+    }
+
+    /**
+    * @dev Set Etherland LANDID NFT contract address
+    * @param _landidNftAddress the address of LANDID NFT Token
+    * @return boolean indicating operation success
+    */
+    function setLandidNftAddress(address _landidNftAddress) public onlyOwner returns (bool) {
+        landidNftAddress = _landidNftAddress;
+        return true;
+    }
+
+    /**
+    * @dev Set Land Registration Address
+    * @param _landRegistration the address of the wallet dedicated to land registrations
+    * @return boolean indicating operation success
+    */
+    function setLandRegistrationAddress(address _landRegistration) public onlyOwner returns(bool) {
+        landRegistration = _landRegistration;
         return true;
     }
     
