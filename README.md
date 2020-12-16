@@ -22,16 +22,24 @@
 Upon Contract Construction:
 - Maximum supply is pre-minted 
 - Address of the contract owner is initialized
-- Supply is partionned and distributed to 3 different wallets :
+- Supply is partionnalized and distributed to 3 different wallets :
 	- Team wallet : 10% of the maximum supply is allocated to the team
-	- Reserve : 20% of the maximum supply is allocated as a reserve
-	- Owner : 70% of the maximum supply is transfered and kept by the contract owner
+	- Reserve : 20% of the maximum supply is allocated to the reserve
+	- Owner : 70% of the maximum supply is transfered to the contract owner
 
 
-We cloned OpenZeppelin code for `SafeMath`, `Ownable`, `Burnable`, `Pausable` and `StandardToken` logic.
+We cloned OpenZeppelin code for `SafeMath`, `Ownable`, `Burnable`, and `StandardToken` logic.
 
 	* `SafeMath` provides arithmetic functions that throw exceptions when integer overflows occur.
-	* `Ownable` keeps track of a contract owner and permits the transfer of ownership by the current owner.
+	* `Ownable` keeps track of a contract owner and permits the transfer of ownership by the current owner.
+				This part of the logic  originally propose a straight method named `renounceOwnership`
+				We've enhanced this logic by adding new methods to allow the current owner 
+				to definitively and safely relinquish control of the contract.
+    			this safe check mechanism has been implemented to absolutely avoid situations where a method is unwantely called 
+				which could potentially lock the all ecosystem permanently.
+				To make sure this will never happens, we've defined the standalone release process in 2 steps : 
+					1. First, the owner calls `preRenounceOwnership` method to generate, store and retrieve an hexadecimal random key 
+					   named `relinquishmentToken`.
+					2. In a second time, the owner calls `renounceOwnership` method with `relinquishmentToken` to renounce to his ownership and set the standalone state to true.
 	* `Burnable`provides a burning function that decrement the balance of the burner and the total supply
 	* `StandardToken` provides an implementation of the ERC20 standard.
-	* `Pausable` allows owner to pause the Token Offering contract.
