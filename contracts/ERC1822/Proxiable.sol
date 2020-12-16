@@ -1,5 +1,3 @@
-pragma solidity ^0.7.0;
-
 /**
 * @title Proxiable
 * @dev Etherland - EIP-1822 Proxiable contract implementation for ELAND ERC20

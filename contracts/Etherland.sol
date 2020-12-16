@@ -1,13 +1,9 @@
-// SPDX-License-Identifier: GPL-3.0-only
-pragma solidity ^0.7.0;
-
 import './Ownable.sol';
 import './Pausable.sol';
 import './ERC20/MintableToken.sol';
 import './ERC20/BurnableToken.sol';
 import './libraries/SafeMath.sol';
 import "./ERC1822/Proxiable.sol";
-
 
 /**
 * @title Etherland
@@ -26,9 +22,9 @@ contract Etherland is MintableToken, Pausable, BurnableToken, Proxiable {
     /**
     * @dev Etherland Token Identification
     */
-    string public name = 'Etherland';
-    string public symbol = 'ELAND';
-    uint256 public decimals = 18;
+    string public name;
+    string public symbol;
+    uint16 public decimals;
 
     /**
     * @dev Etherland Wallets
@@ -41,7 +37,7 @@ contract Etherland is MintableToken, Pausable, BurnableToken, Proxiable {
     *   Represents the maximum amount of tokens the contract will ever mint 
     * @notice 1 000 000 000 (1 Billion) ELAND tokens are pre-minted upon contract construction
     */
-    uint256 public maximumSupply = 1e9 * 10 ** decimals;  
+    uint256 public maximumSupply;  
 
     /**
     * @return amount representing _percent % of _amount
@@ -51,18 +47,38 @@ contract Etherland is MintableToken, Pausable, BurnableToken, Proxiable {
     }
 
     /**
-    * @dev Erc20 standard Etherland token constructor
+    * @dev Erc20 Etherland ELAND token constructor
     * @param _owner address of the contract owner to set when migrating this contract
+    * @notice called only once in contract lifetime upon migration to chain
     */
-    function init(address _owner, address _reserve, address _team) public {
+    function init(
+        string memory _name, 
+        string memory _symbol, 
+        uint16 _decimals, 
+        address _owner, 
+        address _reserve, 
+        address _team
+    ) public {
+        /* skip if already initialized */
         if (initialized != true) {
-            // initialize contract
+            /* initialize contract */
             initialized = true;
+            
             /* give ownership of the contract to _owner */
             _transferOwnership(_owner);
-            // set wallets
+            
+            /* set identifiers */
+            name = _name;
+            symbol = _symbol;
+            decimals = _decimals;
+
+            /* set maximum supply to 1 Billion tokens */
+            maximumSupply = 1e9 * 10 ** decimals;
+            
+            /* set wallets */
             team = _team;
             reserve = _reserve;
+            
             /* supply partitioning */
             // 20 percent of the supply goes to the reserve wallet 
             mint(_reserve, percentOf(maximumSupply, 20));
@@ -70,9 +86,24 @@ contract Etherland is MintableToken, Pausable, BurnableToken, Proxiable {
             mint(_team, percentOf(maximumSupply, 10));
             // 70 percent of the supply are kept by the owner
             mint(_owner, percentOf(maximumSupply, 70));
-            // definitively terminate ELAND minting : total and circulating supply will never ever be higher than maximum supply
+            
+            /* 
+                Terminate ELAND minting definitively 
+                total and circulating supply will never ever be higher than the maximum supply 
+            */
             finishMinting();
         }
+    }
+
+    /**
+    * @dev EIP-1822 feature
+    * @dev Realize an update of the Etherland logic code 
+    * @dev calls the proxy contract to update stored logic code contract address at keccak256("PROXIABLE")
+    * @notice once owner renounce contract ownership and owner address is set to the zero address, 
+    *         no one will be able to update the logic code (see renounceOwnership method)
+    */
+    function updateCode(address newCode) public onlyOwner {
+        updateCodeAddress(newCode);
     }
     
     /**
@@ -98,5 +129,6 @@ contract Etherland is MintableToken, Pausable, BurnableToken, Proxiable {
         }
         return true;
     }
+    
 
 }

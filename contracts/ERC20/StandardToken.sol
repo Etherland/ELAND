@@ -1,9 +1,6 @@
-pragma solidity ^0.7.0;
-
 import "./BasicToken.sol";
 import "./ERC20.sol";
 import '../libraries/SafeMath.sol';
-
 
 /**
 * @title Standard ERC20 token
@@ -16,7 +13,6 @@ contract StandardToken is ERC20, BasicToken {
     using SafeMath for uint256;
 
     mapping (address => mapping (address => uint256)) internal allowed;
-
 
     /**
     * @dev Transfer tokens from one address to another

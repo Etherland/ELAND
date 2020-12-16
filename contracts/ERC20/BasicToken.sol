@@ -1,9 +1,5 @@
-pragma solidity ^0.7.0;
-
-
 import "./ERC20Basic.sol";
 import "../libraries/SafeMath.sol";
-
 
 /**
 * @title Basic token

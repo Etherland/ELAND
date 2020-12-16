@@ -1,5 +1,3 @@
-pragma solidity ^0.7.0;
-
 import "./BasicToken.sol";
 import '../libraries/SafeMath.sol';
 /**

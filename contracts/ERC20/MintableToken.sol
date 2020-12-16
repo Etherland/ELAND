@@ -1,8 +1,7 @@
-pragma solidity ^0.7.0;
-
 import "./StandardToken.sol";
 import "../Ownable.sol";
 import "../libraries/SafeMath.sol";
+
 /**
 * @title Mintable token
 * @dev Simple ERC20 Token Mintable implementation
@@ -17,15 +16,16 @@ contract MintableToken is StandardToken {
     bool public mintingFinished = false;
    
     modifier canMint() {
-        require(!mintingFinished, "denied : can't finish minting again");
+        require(!mintingFinished, "denied : can't finish minting");
         _;
     }
 
     /**
-    * @dev Function to mint tokens
+    * @dev Function to internally mint tokens
     * @param _to The address that will receive the minted tokens.
     * @param _amount The amount of tokens to mint.
     * @return A boolean that indicates if the operation was successful.
+    * @notice this method is called only once in Etherland contract lifetime as minting is terminated upon initial contract migration on chain
     */
     function mint(
         address _to,
