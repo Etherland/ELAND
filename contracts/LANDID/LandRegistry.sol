@@ -1,7 +1,6 @@
 import './iLANDID.sol';
 import '../ERC20/MintableToken.sol';
 
-// @todo : Etherland is LandRegistry
 /**
 * @title Land Registration
 * @dev Etherland - Decentralized Land Registration Protocol
@@ -16,9 +15,9 @@ contract LandRegistry is MintableToken {
     // address of the wallet dedicated to land registration
     address internal landRegistration;
     // Land registry can be opened or closed
-    bool public landRegistryOpened = true;
-    // Land registry right 
-    uint[] internal recordRightsPrices;
+    bool public landRegistryOpened = false;
+    // Land registry rights offers
+    uint[] public recordRightsOffers;
     // Schema defining a Right to register a new land
     struct RecordRight {
         // the block timestamp of the record request
@@ -38,18 +37,19 @@ contract LandRegistry is MintableToken {
         _;
     }
 
-    function setLandidNftAddress(address _landidNftAddress) public isNftAdmin returns (bool) {
-        landidNftAddress = _landidNftAddress;
-        return true;
-    }
-
-    function setRecordRightsPrices(uint[] memory _indexedRecordPrices) public isNftAdmin returns (bool) {
-        recordRightsPrices = _indexedRecordPrices;
+    /**
+    * @dev Allow any NFT admin to set public prices for record rights
+    * @param _indexedRecordOffers Array of indexed public ELAND prices of record rights
+    * @return boolean indicating operation success/failure
+    */
+    function setRecordRightsOffers(uint[] memory _indexedRecordOffers) public isNftAdmin returns (bool) {
+        recordRightsOffers = _indexedRecordOffers;
         return true;
     }
 
     /**
     * @dev Let owner open land registry to allow ELAND owners register new lands
+    * @return boolean indicating operation success/failure
     */
     function openLandRegistry() public isNftAdmin returns (bool) {
         landRegistryOpened = true;
@@ -58,6 +58,7 @@ contract LandRegistry is MintableToken {
 
     /**
     * @dev Let owner close land registry to avoid ELAND owners register new lands
+    * @return boolean indicating operation success/failure
     */
     function closeLandRegistry() public isNftAdmin returns (bool) {
         landRegistryOpened = false;
@@ -66,11 +67,13 @@ contract LandRegistry is MintableToken {
 
     /**
     * @dev Allow ELAND owners to mint LANDID automatically or not depending on current mode
+    * @param recordIndex the index of record right offer to give corresponding to `recordRightsOffers` indexes
+    * @return boolean indicating operation success/failure
     */
-    function registerLand(uint _recordRight) public returns (bool) {
+    function registerLand(uint recordIndex) public returns (bool) {
         require(landRegistryOpened && (landRegistration != address(0)), "denied : can't register new land for now");
 
-        uint recordPrice = recordRightsPrices[_recordRight];
+        uint recordPrice = recordRightsOffers[recordIndex];
         require(recordPrice > 0, 'denied : no preset price for provided record right');
 
         bool transferred = transfer(landRegistration, recordPrice);
@@ -78,7 +81,7 @@ contract LandRegistry is MintableToken {
 
         RecordRight memory recordRight;
         recordRight.time = block.timestamp;
-        recordRight.right = _recordRight;
+        recordRight.right = recordIndex;
 
         // store record right
         registryRecordRights[msg.sender].push(recordRight);
@@ -86,18 +89,29 @@ contract LandRegistry is MintableToken {
         return true;
     }
 
-    function validRecordRight(uint time, uint right, uint tokenId) internal pure returns(bool) {
+    /**
+    * @dev Assert that a RecordRight is valid and can be consumed (has no attached tokenId and has a valid block.timestamp)
+    * @param time a valid block.timestamp corresponding to the time of the record request
+    * @param tokenId the LANDID NFT tokenId attached to the tested RecordRight 
+    *       - 0 means available
+    *       - any other value means that the right has already been consumed and that RecordRight is invalid
+    * @return boolean indicating validity / availability of the record right
+    */
+    function validRecordRight(uint time, uint tokenId) internal pure returns(bool) {
         return(
             (time > 0)
-            && (right > 0)
             && (tokenId == 0)
         );
     }
 
     /**
-    * @dev
+    * @dev Allow LANDID NFT administrators to consume a registry record right of an owner indicating minting of the record request related NFT
+    * @param _owner address of the RecordRight owner
+    * @param recordIndex the index of record right offer to consume corresponding to `recordRightsOffers` indexes
+    * @param tokenId the LANDID NFT tokenId attached to attach to the first available/matching RecordRight 
+    * @return boolean indicating if valid target right for `recordIndex` has been found and consumed
     */
-    function consumeRegistryRight(address _owner, uint recordIndex, uint tokenId) public isNftAdmin returns (bool) {
+    function consumeRecordRight(address _owner, uint recordIndex, uint tokenId) public isNftAdmin returns (bool) {
         RecordRight[] memory ownerRecordRights = registryRecordRights[_owner];
         require(ownerRecordRights.length > 0, 'denied : no record right found for provided address');
 
@@ -108,7 +122,7 @@ contract LandRegistry is MintableToken {
             if (
                 consumed == false
                 && recordRight.right == recordIndex
-                && validRecordRight(recordRight.time, recordRight.right, recordRight.tokenId)
+                && validRecordRight(recordRight.time, recordRight.tokenId)
             ) {
                 // consume right
                 recordRight.tokenId = tokenId;
