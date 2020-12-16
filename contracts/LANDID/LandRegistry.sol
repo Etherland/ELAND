@@ -2,7 +2,7 @@ import './iLANDID.sol';
 import '../ERC20/MintableToken.sol';
 
 /**
-* @title Land Registration
+* @title Land Registry
 * @dev Etherland - Decentralized Land Registration Protocol
 * @dev Allow ELAND owners to register lands in the Etherland eco-system by minting Etherland ERC721 LANDID NFT
 */
