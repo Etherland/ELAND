@@ -7,7 +7,7 @@ import './LANDID/LandRegistry.sol';
 * @title Etherland
 * @dev Etherland fungible utility token
 */
-contract Etherland is Ownable, LandRegistration, BurnableToken, Proxiable {
+contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     using SafeMath for uint256;
     
     /**
