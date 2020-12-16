@@ -32,6 +32,7 @@ contract BasicToken is ERC20Basic {
 
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
+        
         emit Transfer(msg.sender, _to, _value);
         return true;
     }
