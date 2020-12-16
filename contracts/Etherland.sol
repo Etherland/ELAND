@@ -8,7 +8,7 @@ import "./ERC1822/Proxiable.sol";
 * @title Etherland
 * @dev Etherland fungible utility token
 */
-contract Etherland is MintableToken, BurnableToken, Proxiable {
+contract Etherland is Ownable, MintableToken, BurnableToken, Proxiable {
     using SafeMath for uint256;
     
     /**
