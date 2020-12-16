@@ -1,5 +1,4 @@
 import "./StandardToken.sol";
-import "../Ownable.sol";
 import "../libraries/SafeMath.sol";
 
 /**
@@ -16,7 +15,7 @@ contract MintableToken is StandardToken {
     bool public mintingFinished = false;
    
     modifier canMint() {
-        require(!mintingFinished, "denied : can't finish minting");
+        require(!mintingFinished, "denied : minting has been terminated");
         _;
     }
 

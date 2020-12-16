@@ -1,11 +1,9 @@
-    pragma solidity ^0.7.0;
 
-
-    /**
-    * @title SafeMath
-    * @dev Math operations with safety checks that throw on error
-    */
-    library SafeMath {
+/**
+* @title SafeMath
+* @dev Math operations with safety checks that throw on error
+*/
+library SafeMath {
 
     /**
     * @dev Multiplies two numbers, throws on overflow.
@@ -49,4 +47,4 @@
         assert(c >= _a);
         return c;
     }
-    }
+}
