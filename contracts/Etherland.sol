@@ -1,5 +1,4 @@
 import './Ownable.sol';
-import './Pausable.sol';
 import './ERC20/MintableToken.sol';
 import './ERC20/BurnableToken.sol';
 import './libraries/SafeMath.sol';
@@ -9,7 +8,7 @@ import "./ERC1822/Proxiable.sol";
 * @title Etherland
 * @dev Etherland fungible utility token
 */
-contract Etherland is MintableToken, Pausable, BurnableToken, Proxiable {
+contract Etherland is Ownable, MintableToken, BurnableToken, Proxiable {
     using SafeMath for uint256;
     
     /**

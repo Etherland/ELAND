@@ -16,10 +16,10 @@ Migrations dry-run (simulation)
 
    Replacing 'Migrations'
    ----------------------
-   > block number:        7726908
-   > block timestamp:     1608079510
+   > block number:        7727128
+   > block timestamp:     1608082801
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.752774655
+   > balance:             2.704853795
    > gas used:            153502 (0x2579e)
    > gas price:           2 gwei
    > value sent:          0 ETH
@@ -45,35 +45,35 @@ Deploying Eland on rinkeby-fork network with construct arguments : {
 
    Replacing 'Etherland'
    ---------------------
-   > block number:        7726910
-   > block timestamp:     1608079519
+   > block number:        7727130
+   > block timestamp:     1608082810
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.749196759
-   > gas used:            1761669 (0x1ae185)
+   > balance:             2.701634587
+   > gas used:            1582325 (0x1824f5)
    > gas price:           2 gwei
    > value sent:          0 ETH
-   > total cost:          0.003523338 ETH
+   > total cost:          0.00316465 ETH
 
 
    Replacing 'Proxy'
    -----------------
-   > block number:        7726911
-   > block timestamp:     1608079569
+   > block number:        7727131
+   > block timestamp:     1608082860
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.748814807
-   > gas used:            190976 (0x2ea00)
+   > balance:             2.701252699
+   > gas used:            190944 (0x2e9e0)
    > gas price:           2 gwei
    > value sent:          0 ETH
-   > total cost:          0.000381952 ETH
+   > total cost:          0.000381888 ETH
 
    -------------------------------------
-   > Total cost:          0.00390529 ETH
+   > Total cost:         0.003546538 ETH
 
 
 Summary
 =======
 > Total deployments:   3
-> Final cost:          0.004212294 ETH
+> Final cost:          0.003853542 ETH
 
 
 
@@ -91,13 +91,13 @@ Starting migrations...
 
    Replacing 'Migrations'
    ----------------------
-   > transaction hash:    0x2834f86ae4e88bf157567e95498ea283cf81da4b7ad7ce07a51452d6cd593568
-   > Blocks: 1            Seconds: 8
-   > contract address:    0x585F542140234F93EBEA4a60B28316967df2a03c
-   > block number:        7726913
-   > block timestamp:     1608079588
+   > transaction hash:    0x92230c56e54a4d698fb152428bfd66a9632c0e8284c57036e31839e13abbfad6
+   > Blocks: 1            Seconds: 16
+   > contract address:    0x11bEF6934f23AB73e90ff510a0b124C3fD76ED46
+   > block number:        7727133
+   > block timestamp:     1608082892
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.749711619
+   > balance:             2.701790759
    > gas used:            168502 (0x29236)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -126,41 +126,41 @@ Deploying Eland on rinkeby network with construct arguments : {
 
    Replacing 'Etherland'
    ---------------------
-   > transaction hash:    0xa71864d3bbc502b0b042837437f306a790a918a214e29fcfd21658d77a739c96
+   > transaction hash:    0xe9d9b0ca55de1d0e448edbdd2a82610c0cec50814d848f690d6a8490d259b9b0
    > Blocks: 1            Seconds: 12
-   > contract address:    0x88cFE173C2009D3dEbaf774a5AaA19f1e322ebF8
-   > block number:        7726915
-   > block timestamp:     1608079618
+   > contract address:    0x1b21998f843942b7a46899d36b021058a0D23D59
+   > block number:        7727135
+   > block timestamp:     1608082922
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.713200659
-   > gas used:            1783269 (0x1b35e5)
+   > balance:             2.668866679
+   > gas used:            1603925 (0x187955)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.03566538 ETH
+   > total cost:          0.0320785 ETH
 
 
    Replacing 'Proxy'
    -----------------
-   > transaction hash:    0x332f0eb8585bc63ed5f90b330536132f531a13b1cadf14151158831282d9dd19
+   > transaction hash:    0xda18b1394fd172911ed99c6a34198680038362d041e8aca928756de9f6dfa970
    > Blocks: 1            Seconds: 12
-   > contract address:    0x1B6E831347ee7f18C402D0623fDe9ee23ad7bcf0
-   > block number:        7726916
-   > block timestamp:     1608079633
+   > contract address:    0xFC16Aa0b6ED422165D80DA95a6876504c10b61b3
+   > block number:        7727136
+   > block timestamp:     1608082937
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.705781139
-   > gas used:            370976 (0x5a920)
+   > balance:             2.661447799
+   > gas used:            370944 (0x5a900)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.00741952 ETH
+   > total cost:          0.00741888 ETH
 
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:           0.0430849 ETH
+   > Total cost:          0.03949738 ETH
 
 
 Summary
 =======
 > Total deployments:   3
-> Final cost:          0.04645494 ETH
+> Final cost:          0.04286742 ETH
