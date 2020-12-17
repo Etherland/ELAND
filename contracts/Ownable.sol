@@ -52,7 +52,9 @@ contract Ownable {
     *   - no one will no longer ever have any access to owner-restricted methods
     */
     function renounceOwnership(bytes32 _relinquishmentToken) public onlyOwner {
-        require(_relinquishmentToken == _relinquishmentToken, 'denied : a relinquishment token must be pre-set calling the preRenounceOwnership method');
+        require(
+            ((relinquishmentToken != bytes32(0)) && (relinquishmentToken == _relinquishmentToken)), 
+            'denied : a relinquishment token must be pre-set calling the preRenounceOwnership method');
         // require(landRegistryOpened, 'Land registry must be opened to renounce ownership');
         emit OwnershipRenounced(owner);
         standalone = true;
