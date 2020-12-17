@@ -107,7 +107,7 @@ contract LandRegistry is MintableToken {
     /**
     * @dev Allow LANDID NFT administrators to consume a registry record right of an owner indicating minting of the record request related NFT
     * @param _owner address of the RecordRight owner
-    * @param recordIndex the index of record right offer to consume corresponding to `recordRightsOffers` indexes
+    * @param recordIndex the index of record right offer that has been paid by _owner (must correspond to a `recordRightsOffers` index)
     * @param tokenId the LANDID NFT tokenId attached to attach to the first available/matching RecordRight 
     * @return boolean indicating if valid target right for `recordIndex` has been found and consumed
     */
@@ -131,7 +131,8 @@ contract LandRegistry is MintableToken {
             }
         }
 
-        return consumed;
+        if (consumed) return true;
+        else revert('denied : no registry record right found for provided address');
     }
 
 }
