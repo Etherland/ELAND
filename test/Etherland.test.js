@@ -46,7 +46,7 @@ contract('Proxy', (accounts) => {
       (await etherland.symbol()).toString().should.equal('TSTELND');
     });
 
-    it('checks that supply is well ditributed as expected upon migration', async() => {
+    it('checks that supply is ditributed as expected upon migration', async() => {
       (await etherland.totalSupply()).toString().should.equal(totalSupply);
       (await etherland.circulatingSupply()).toString().should.equal('0');
       (await etherland.balanceOf(owner)).toString().should.equal('700000000000000000000000000');
@@ -54,8 +54,8 @@ contract('Proxy', (accounts) => {
       (await etherland.balanceOf(reserveWallet)).toString().should.equal('200000000000000000000000000');
     });
 
-    it('checks that minting is finished upon migration', async() => {
-      (await etherland.mintingIsFinished()).toString().should.equal('true');
+    it('checks that minting more tokens than the cap is impossible', async() => {
+      (await etherland.cap()).toString().should.equal(totalSupply);
     });
 
     it('test ownership of the contract and standalone state', async () => {

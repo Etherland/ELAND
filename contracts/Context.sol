@@ -1,3 +1,5 @@
+import "./Storage.sol";
+
 /*
  * @dev Provides information about the current execution context, including the
  * sender of the transaction and its data. While these are generally available
@@ -8,7 +10,7 @@
  *
  * This contract is only required for intermediate, library-like contracts.
  */
-abstract contract Context {
+abstract contract Context is Storage {
     function _msgSender() internal view virtual returns (address payable) {
         return msg.sender;
     }

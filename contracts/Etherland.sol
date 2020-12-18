@@ -8,25 +8,18 @@ import './LANDID/LandRegistry.sol';
 contract Etherland is LandRegistry, Proxiable {
     using SafeMath for uint256;
     
-    /**
-    * @dev Contact initialization state
-    * initialized state is set upon construction
-    * MUST be initialized to be valid
-    */
-    bool public initialized = false;
+    // /**
+    // * @dev Contact initialization state
+    // * initialized state is set upon construction
+    // * MUST be initialized to be valid
+    // */
+    // bool public initialized = false;
 
-    /**
-    * @dev Etherland Wallets
-    */
-    address public team;
-    address public reserve;
-
-    /**
-    * @dev Maximum Supply
-    *   Represents the maximum amount of tokens the contract will ever mint 
-    * @notice 1 000 000 000 (1 Billion) ELAND tokens are pre-minted upon contract construction
-    */
-    uint256 public maximumSupply;  
+    // /**
+    // * @dev Etherland Wallets
+    // */
+    // address public team;
+    // address public reserve;
 
     /**
     * @return amount representing _percent % of _amount
@@ -55,27 +48,37 @@ contract Etherland is LandRegistry, Proxiable {
             */
             initialized = true;
             
-            /* give ownership of the contract to _owner */
+            /* 
+                give ownership of the contract to _owner 
+            */
             _transferOwnership(_owner);
+
+            /* 
+                define maximum supply to 1 Billion tokens
+            */
+            uint maximumSupply = 1e9 * 10 ** decimals_;
+
+            /* 
+                definitively end minting of ELAND token by setting cap supply to maximum supply of 1 Billion.
+                total and circulating supply will never ever be higher than the cap 
+            */
+            setImmutableCap(maximumSupply);
             
             /* 
-                set identifiers 
+                set contract identifiers 
             */
             _name = name_;
             _symbol = symbol_;
             _decimals = decimals_;
-
-            /* set maximum supply to 1 Billion tokens */
-            maximumSupply = 1e9 * 10 ** _decimals;
             
             /*
-                set wallets 
+                set wallets for partionning
             */
             team = _team;
             reserve = _reserve;
             
             /* 
-                supply partitioning 
+                partition the supply 
                     - 20 percent of the supply goes to the reserve wallet
                     - 10 percent of the supply goes to the team wallet
                     - 70 percent of the supply are kept by the owner
@@ -84,11 +87,6 @@ contract Etherland is LandRegistry, Proxiable {
             mint(_team, percentOf(maximumSupply, 10));
             mint(_owner, percentOf(maximumSupply, 70));
             
-            /* 
-                definitively end minting of ELAND token
-                total and circulating supply will never ever be higher than the maximum supply 
-            */
-            finishMinting();
         }
     }
 

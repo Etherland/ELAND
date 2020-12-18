@@ -31,33 +31,6 @@ import "../libraries/SafeMath.sol";
 contract ERC20 is Ownable, IERC20 {
     using SafeMath for uint256;
 
-    mapping (address => uint256) private _balances;
-
-    mapping (address => mapping (address => uint256)) private _allowances;
-
-    uint256 private _totalSupply;
-
-    string internal _name;
-    string internal _symbol;
-    uint8 internal _decimals;
-
-    bool internal mintingFinished;
-
-    // /**
-    //  * @dev Sets the values for {name} and {symbol}, initializes {decimals} with
-    //  * a default value of 18.
-    //  *
-    //  * To select a different value for {decimals}, use {_setupDecimals}.
-    //  *
-    //  * All three of these values are immutable: they can only be set once during
-    //  * construction.
-    //  */
-    // constructor (string memory name_, string memory symbol_) {
-    //     _name = name_;
-    //     _symbol = symbol_;
-    //     _decimals = 18;
-    // }
-
     /**
      * @dev Returns the name of the token.
      */
@@ -247,7 +220,7 @@ contract ERC20 is Ownable, IERC20 {
      * - `account` must have at least `amount` tokens.
      */
     function _burn(address account, uint256 amount) internal virtual {
-        require(account != address(0), "ERC20: burn from the zero address");
+        require(account != address(0), "ERC20: can't burn from the zero address");
 
         _beforeTokenTransfer(account, address(0), amount);
 
@@ -310,7 +283,9 @@ contract ERC20 is Ownable, IERC20 {
             require(_balances[from] >= amount, 'not enough funds to transfer');
         }
         else if (!hasFrom) {
-            require(!mintingFinished, 'minting is finished');
+            // require(!mintingFinished, 'minting is finished');
+            require(totalSupply().add(amount) <= _cap, "ERC20Capped: cap exceeded");
+
         }
         else if (!hasTo) {
             require(_balances[from] >= amount, 'not enough funds to burn');
