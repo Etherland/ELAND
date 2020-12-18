@@ -10,7 +10,7 @@ import "./Storage.sol";
  *
  * This contract is only required for intermediate, library-like contracts.
  */
-abstract contract Context is Storage {
+contract Context is Storage {
     function _msgSender() internal view virtual returns (address payable) {
         return msg.sender;
     }

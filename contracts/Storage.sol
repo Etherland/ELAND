@@ -5,16 +5,14 @@ contract Storage {
 // 
 // Ownable.sol
 //
-     /**
+    /**
     * @dev Etherland owner address
     */
     address public owner;
-
     /**
     * @dev Generated random salt acting in the safecheck mechanism when renouncing contract ownership 
     */
     bytes32 internal relinquishmentToken;
-    
     /**
     * @dev Standalone mode
     * @notice see renounceOwnership method's notice below
@@ -35,7 +33,6 @@ contract Storage {
 // ERC20Capped.sol
 //
     uint256 internal _cap;
-    // LandRegistry.sol
     // Instance of Etherland LANDID NFT Administrator rights verifier
     iLANDID landid;
     // address of Etherland LANDID NFT

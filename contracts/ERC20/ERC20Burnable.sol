@@ -6,7 +6,7 @@ import "./ERC20Capped.sol";
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-abstract contract ERC20Burnable is ERC20Capped {
+contract ERC20Burnable is ERC20Capped {
     using SafeMath for uint256;
 
     /**
