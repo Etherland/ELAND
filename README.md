@@ -17,7 +17,7 @@
 	4.  LAND REGISTRY
 		Etherland Decentralized Land Registration Protocol
 		On the Etherland Metaverse, any token holder has the ability to register a new land, to do so, they must purchase Land Record Rights which are
-		a sub-asset of the ecosystem. Those rights are defined by Etherland and detailed on our website at https://etherland.io/ 
+		a sub-asset of the ecosystem. Those rights are defined by Etherland and detailed on our website at https://etherland.io/dashboard/?ua=newitem
 		however, Land Record Rights total and prices in ELAND are stored on-chain and can be retrieved from a method named `recordRightsOffers` 
 		(rights prices are indexed)
 
