@@ -1,5 +1,3 @@
-
-
 import "./ERC20Capped.sol";
 
 

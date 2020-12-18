@@ -56,6 +56,7 @@ contract('Proxy', (accounts) => {
 
     it('checks that minting more tokens than the cap is impossible', async() => {
       (await etherland.cap()).toString().should.equal(totalSupply);
+      (await etherland.mintingFinished()).toString().should.equal('true');
     });
 
     it('test ownership of the contract and standalone state', async () => {

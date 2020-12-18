@@ -1,5 +1,3 @@
-
-
 import "../Ownable.sol";
 import "./IERC20.sol";
 import "../libraries/SafeMath.sol";

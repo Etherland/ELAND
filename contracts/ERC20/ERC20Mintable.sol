@@ -14,6 +14,10 @@ contract ERC20Mintable is ERC20Burnable {
     */
     event Mint(address indexed to, uint256 amount);
 
+    function mintingFinished() public view returns(bool){
+        return _mintingFinished;
+    }
+
     /**
     * @dev Function to internally mint tokens
     * @param _to The address that will receive the minted tokens.
@@ -28,6 +32,7 @@ contract ERC20Mintable is ERC20Burnable {
         internal
         returns (bool)
     {
+        require(mintingFinished() == false, 'ERC20Mintable : Minting is finished');
         _mint(_to, _amount);
         Mint(_to, _amount);
         return true;

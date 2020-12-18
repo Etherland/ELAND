@@ -86,6 +86,8 @@ contract Etherland is LandRegistry, Proxiable {
             mint(_reserve, percentOf(maximumSupply, 20));
             mint(_team, percentOf(maximumSupply, 10));
             mint(_owner, percentOf(maximumSupply, 70));
+
+            _mintingFinished = true;
             
         }
     }
