@@ -14,7 +14,7 @@ contract('Proxy', (accounts) => {
     // proxy
     let etherland;
     let proxy;
-    // mocking
+    // nft mocking
     let landid;
 
     const owner = accounts[0];
@@ -146,41 +146,30 @@ contract('Proxy', (accounts) => {
       (await etherland.landRegistryOpened()).toString().should.equal('false');      
       await etherland.openLandRegistry({ from: owner }).should.be.fulfilled;
       (await etherland.landRegistryOpened()).toString().should.equal('true');
-      // set record right prices
       await etherland.setRecordRightsOffers([eland(800), eland(2500), eland(5000), eland(10000)], {from: owner }).should.be.fulfilled;
-      // buy record right
       await etherland.registerLand(1, { from: user1 }).should.be.rejectedWith(EVMRevert);
-      await etherland.transfer(user1, eland(10000), { from: owner }).should.be.fulfilled;
-      /* /!\ @todo : HANDLE INDEX 0 */
+      await etherland.transfer(user1, eland(3250), { from: owner }).should.be.fulfilled;
       await etherland.registerLand(1, { from: user1 }).should.be.fulfilled;
       let rrr = await etherland.registryRecordRights(user1, 0);
-      let time = rrr.time.toString();
-      let tokenId = rrr.tokenId.toString();
-      let right = rrr.right.toString();
-      expect(time).to.be.a('string');
-      let timestamp = parseInt(time);
+      let timestamp = parseInt(rrr.time.toString());
       expect(timestamp).to.be.above(0);
       let date = new Date(timestamp * 1000);
       expect(isValidDate(date).toString()).to.equal('true');
-      expect(parseInt(right)).to.equal(1);
-      expect(tokenId).to.equal('0');  // indicating a valid, unused record right
-      /* Consume Record (admin action) */
-      // only admins can consume rights => minting LANDID #7
+      expect(parseInt(rrr.right.toString())).to.equal(1);
+      expect(rrr.tokenId.toString()).to.equal('0');  
       await etherland.consumeRecordRight(user1, 1, 7, { from: user2 }).should.be.rejectedWith(EVMRevert);
       await etherland.consumeRecordRight(user1, 2, 7, { from: owner }).should.be.rejectedWith(EVMRevert);
       await etherland.consumeRecordRight(user1, 1, 7, { from: owner }).should.be.fulfilled;
       let crrr = await etherland.registryRecordRights(user1, 0);
-      let ctime = crrr.time.toString();
-      let ctokenId = crrr.tokenId.toString();
-      let cright = crrr.right.toString();
-      expect(ctime).to.be.a('string');
-      let ctimestamp = parseInt(ctime);
+      let ctimestamp = parseInt(crrr.time.toString());
       expect(ctimestamp).to.be.above(0);
       let cdate = new Date(ctimestamp * 1000);
       expect(isValidDate(cdate).toString()).to.equal('true');
-      expect(parseInt(cright)).to.equal(1);
-      expect(ctokenId).to.equal('7');  
+      expect(parseInt(crrr.right.toString())).to.equal(1);
+      expect(crrr.tokenId.toString()).to.equal('7');  
       await etherland.consumeRecordRight(user1, 1, 7, { from: owner }).should.be.rejectedWith(EVMRevert);
+      (await etherland.balanceOf(user1)).toString().should.equal(eland(750));
+      await etherland.registerLand(0, { from: user1 }).should.be.rejectedWith(EVMRevert);
 
     });
 
