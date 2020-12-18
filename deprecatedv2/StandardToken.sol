@@ -1,5 +1,7 @@
+import '../Ownable.sol';
 import "./BasicToken.sol";
 import "./ERC20.sol";
+// import '../Context.sol';
 import '../libraries/SafeMath.sol';
 
 /**
@@ -9,7 +11,7 @@ import '../libraries/SafeMath.sol';
 * https://github.com/ethereum/EIPs/issues/20
 * Based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
 */
-contract StandardToken is ERC20, BasicToken {
+contract StandardToken is Ownable, ERC20, BasicToken {
     using SafeMath for uint256;
 
     mapping (address => mapping (address => uint256)) internal allowed;

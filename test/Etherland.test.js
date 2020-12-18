@@ -55,7 +55,7 @@ contract('Proxy', (accounts) => {
     });
 
     it('checks that minting is finished upon migration', async() => {
-      (await etherland.mintingFinished()).toString().should.equal('true');
+      (await etherland.mintingIsFinished()).toString().should.equal('true');
     });
 
     it('test ownership of the contract and standalone state', async () => {
@@ -86,6 +86,13 @@ contract('Proxy', (accounts) => {
       (await etherland.balanceOf(user1)).toString().should.equal(eland(1000));
       (await etherland.circulatingSupply()).toString().should.equal(eland(1000));
       (await etherland.totalSupply()).toString().should.equal(eland(1e9 - 500));
+      await etherland.approve(user2, eland(500), { from: user1 }).should.be.fulfilled;
+      await etherland.burnFrom(user1, eland(400), { from: user2 }).should.be.fulfilled;
+      (await etherland.balanceOf(user1)).toString().should.equal(eland(1000 - 400));
+      (await etherland.allowance(user1, user2)).toString().should.equal(eland(100));
+      
+
+
     });
 
     it('testing approve and allowances updates functions', async () => {
@@ -95,11 +102,11 @@ contract('Proxy', (accounts) => {
       await etherland.approve(user2, eland(500), { from: user1 }).should.be.fulfilled;
       await etherland.approve(user2, eland(500), { from: user1 }).should.be.fulfilled;
       (await etherland.allowance(user1, user2)).toString().should.equal(eland(500));
-      await etherland.decreaseApproval(user2, eland(151), { from: user1 }).should.be.fulfilled;
+      await etherland.decreaseAllowance(user2, eland(151), { from: user1 }).should.be.fulfilled;
       (await etherland.allowance(user1, user2)).toString().should.equal(eland(349));
-      await etherland.increaseApproval(user2, eland(251), { from: user1 }).should.be.fulfilled;
+      await etherland.increaseAllowance(user2, eland(251), { from: user1 }).should.be.fulfilled;
       (await etherland.allowance(user1, user2)).toString().should.equal(eland(600));
-      await etherland.decreaseApproval(user2, eland(599), { from: user1 }).should.be.fulfilled;
+      await etherland.decreaseAllowance(user2, eland(599), { from: user1 }).should.be.fulfilled;
       (await etherland.allowance(user1, user2)).toString().should.equal(eland(1));
 
     });

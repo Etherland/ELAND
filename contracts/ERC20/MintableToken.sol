@@ -1,4 +1,4 @@
-import "./StandardToken.sol";
+import "./ERC20Burnable.sol";
 import "../libraries/SafeMath.sol";
 
 /**
@@ -6,13 +6,13 @@ import "../libraries/SafeMath.sol";
 * @dev Simple ERC20 Token Mintable implementation
 * @notice will be used only once on contrat construction, then minting MUST be automatically terminated 
 */
-contract MintableToken is StandardToken {
+contract MintableToken is ERC20Burnable {
     using SafeMath for uint256;
 
     event Mint(address indexed to, uint256 amount);
     event MintFinished();
 
-    bool public mintingFinished = false;
+    //bool public mintingFinished = false;
    
     modifier canMint() {
         require(!mintingFinished, "denied : minting has been terminated");
@@ -34,11 +34,15 @@ contract MintableToken is StandardToken {
         canMint
         returns (bool)
     {
-        totalSupply_ = totalSupply_.add(_amount);
-        balances[_to] = balances[_to].add(_amount);
-        emit Mint(_to, _amount);
-        emit Transfer(address(0), _to, _amount);
+        _mint(_to, _amount);
         return true;
+    }
+
+    /**
+    * @dev
+    */
+    function mintingIsFinished() public view returns(bool) {
+        return mintingFinished;
     }
 
     /**

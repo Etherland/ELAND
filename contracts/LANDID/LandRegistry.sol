@@ -6,7 +6,7 @@ import '../ERC20/MintableToken.sol';
 * @dev Etherland - Decentralized Land Registration Protocol
 * @dev Allow ELAND owners to register lands in the Etherland eco-system by minting Etherland ERC721 LANDID NFT
 */
-contract LandRegistry is MintableToken {
+abstract contract LandRegistry is MintableToken {
     
     // Instance of Etherland LANDID NFT Administrator rights verifier
     iLANDID landid;
@@ -32,7 +32,7 @@ contract LandRegistry is MintableToken {
 
     modifier isNftAdmin() {
         landid = iLANDID(landidNftAddress);
-        int16 adminRight = landid.adminRightsOf(msg.sender);
+        int16 adminRight = landid.adminRightsOf(_msgSender());
         require((adminRight > 0) && (adminRight < 3), 'denied : restricted to LANDID NFT admins');
         _;
     }
@@ -84,7 +84,7 @@ contract LandRegistry is MintableToken {
         recordRight.right = recordIndex;
 
         // store record right
-        registryRecordRights[msg.sender].push(recordRight);
+        registryRecordRights[_msgSender()].push(recordRight);
 
         return true;
     }

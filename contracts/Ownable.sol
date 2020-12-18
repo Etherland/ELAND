@@ -1,12 +1,11 @@
-// SPDX-License-Identifier: GPL-3.0-only
-pragma solidity ^0.7.0;
+import './Context.sol';
 
 /**
 * @title Ownable
 * @dev The Ownable contract has an owner address, and provides basic authorization control
 * functions, this simplifies the implementation of "user permissions".
 */
-contract Ownable {
+contract Ownable is Context {
     /**
     * @dev Etherland owner address
     */
@@ -34,8 +33,8 @@ contract Ownable {
     */
     modifier onlyOwner() {
         require(!standalone, 'denied : owner actions are locked when contract is running standalone');
-        require(msg.sender != address(0), "denied : zero address has no rights");
-        require(msg.sender == owner, "denied : method access is restricted to the contract owner");
+        require(_msgSender() != address(0), "denied : zero address has no rights");
+        require(_msgSender() == owner, "denied : method access is restricted to the contract owner");
         _;
     }
 
@@ -67,7 +66,7 @@ contract Ownable {
     * @notice generating this key allows the contract owner to pass it to the renounceOwnership method in order to set the contract as standalone
     */
     function preRenounceOwnership() public onlyOwner returns(bytes32 _relinquishmentToken) {
-        uint rand = uint(keccak256(abi.encodePacked(block.timestamp, uint8(msg.sender))));
+        uint rand = uint(keccak256(abi.encodePacked(block.timestamp, uint8(_msgSender()))));
         bytes32 salt = bytes32(rand);
         relinquishmentToken = salt;
         _relinquishmentToken = salt;

@@ -1,3 +1,4 @@
+
 /**
  * @title ERC20Basic
  * @dev Simpler version of ERC20 interface

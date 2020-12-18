@@ -1,5 +1,3 @@
-import './Ownable.sol';
-import './ERC20/BurnableToken.sol';
 import './libraries/SafeMath.sol';
 import "./ERC1822/Proxiable.sol";
 import './LANDID/LandRegistry.sol';
@@ -7,7 +5,7 @@ import './LANDID/LandRegistry.sol';
 * @title Etherland
 * @dev Etherland fungible utility token
 */
-contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
+contract Etherland is LandRegistry, Proxiable {
     using SafeMath for uint256;
     
     /**
@@ -16,13 +14,6 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     * MUST be initialized to be valid
     */
     bool public initialized = false;
-
-    /**
-    * @dev Etherland Token Identification
-    */
-    string public name;
-    string public symbol;
-    uint16 public decimals;
 
     /**
     * @dev Etherland Wallets
@@ -50,9 +41,9 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     * @notice called only once in contract lifetime upon migration to chain
     */
     function init(
-        string memory _name, 
-        string memory _symbol, 
-        uint16 _decimals, 
+        string memory name_, 
+        string memory symbol_, 
+        uint8 decimals_, 
         address _owner, 
         address _reserve, 
         address _team
@@ -70,12 +61,12 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
             /* 
                 set identifiers 
             */
-            name = _name;
-            symbol = _symbol;
-            decimals = _decimals;
+            _name = name_;
+            _symbol = symbol_;
+            _decimals = decimals_;
 
             /* set maximum supply to 1 Billion tokens */
-            maximumSupply = 1e9 * 10 ** decimals;
+            maximumSupply = 1e9 * 10 ** _decimals;
             
             /*
                 set wallets 
@@ -117,7 +108,7 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     * @return the number of circulating ELAND (totalSupply - team - reserve - owner)
     */
     function circulatingSupply() public view returns(uint) {
-        return (totalSupply() - balances[team] - balances[reserve] - balances[owner]);
+        return (totalSupply().sub(balanceOf(team)).sub(balanceOf(reserve)).sub(balanceOf(owner)));
     }
 
    /**
@@ -129,7 +120,7 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     function batchTransfer(address[] memory _to, uint _value) public returns(bool) {
         uint ttlRecipients = _to.length;
         require(ttlRecipients > 0, 'at least on recipient must be defined');
-        require(balanceOf(msg.sender) >= (_value.mul(ttlRecipients)), 'batch transfer denied : unsufficient balance');
+        require(balanceOf(_msgSender()) >= (_value.mul(ttlRecipients)), 'batch transfer denied : unsufficient balance');
         for (uint i = 0; i < ttlRecipients; i++) {
             address recipient = _to[i];
             transfer(recipient, _value);
