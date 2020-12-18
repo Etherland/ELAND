@@ -1,4 +1,4 @@
-import "./StandardToken.sol";
+import "./ERC20Burnable.sol";
 import "../libraries/SafeMath.sol";
 
 /**
@@ -6,17 +6,16 @@ import "../libraries/SafeMath.sol";
 * @dev Simple ERC20 Token Mintable implementation
 * @notice will be used only once on contrat construction, then minting MUST be automatically terminated 
 */
-contract MintableToken is StandardToken {
+contract ERC20Mintable is ERC20Burnable {
     using SafeMath for uint256;
 
+    /**
+    * @dev Minting event for Etherland *MUST* fire only once by supply partition (see Etherland.sol `init` function called when migrating
+    */
     event Mint(address indexed to, uint256 amount);
-    event MintFinished();
 
-    bool public mintingFinished = false;
-   
-    modifier canMint() {
-        require(!mintingFinished, "denied : minting has been terminated");
-        _;
+    function mintingFinished() public view returns(bool){
+        return _mintingFinished;
     }
 
     /**
@@ -31,24 +30,12 @@ contract MintableToken is StandardToken {
         uint256 _amount
     )
         internal
-        canMint
         returns (bool)
     {
-        totalSupply_ = totalSupply_.add(_amount);
-        balances[_to] = balances[_to].add(_amount);
-        emit Mint(_to, _amount);
-        emit Transfer(address(0), _to, _amount);
+        require(mintingFinished() == false, 'ERC20Mintable : Minting is finished');
+        _mint(_to, _amount);
+        Mint(_to, _amount);
         return true;
     }
 
-    /**
-    * @dev Function to definitively stop minting new tokens.
-    * @return True if the operation was successful.
-    * @notice Finishing Minting is irreversible 
-    */
-    function finishMinting() internal canMint returns (bool) {
-        mintingFinished = true;
-        emit MintFinished();
-        return true;
-    }
 }

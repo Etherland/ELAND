@@ -23,7 +23,6 @@ module.exports = async (deployer, network) => {
         const SYMBOL = 'ELAND';
         const DECIMALS = 18;
 
-        console.log(`*\nDeploying Eland on`, network, 'network with construct arguments :', {NAME, SYMBOL, DECIMALS, OWNER, RESERVE_WALLET, TEAM_WALLET}, '\n*\n');
         await deployer.deploy(Etherland, { gas: 3000000 });
         const { abi, address } = Etherland;
         const logic = await Promise.resolve(new web3.eth.Contract(abi, address, { address }));

@@ -46,7 +46,7 @@ contract('Proxy', (accounts) => {
       (await etherland.symbol()).toString().should.equal('TSTELND');
     });
 
-    it('checks that supply is well ditributed as expected upon migration', async() => {
+    it('checks that supply is ditributed as expected upon migration', async() => {
       (await etherland.totalSupply()).toString().should.equal(totalSupply);
       (await etherland.circulatingSupply()).toString().should.equal('0');
       (await etherland.balanceOf(owner)).toString().should.equal('700000000000000000000000000');
@@ -54,7 +54,8 @@ contract('Proxy', (accounts) => {
       (await etherland.balanceOf(reserveWallet)).toString().should.equal('200000000000000000000000000');
     });
 
-    it('checks that minting is finished upon migration', async() => {
+    it('checks that minting more tokens than the cap is impossible', async() => {
+      (await etherland.cap()).toString().should.equal(totalSupply);
       (await etherland.mintingFinished()).toString().should.equal('true');
     });
 
@@ -86,6 +87,13 @@ contract('Proxy', (accounts) => {
       (await etherland.balanceOf(user1)).toString().should.equal(eland(1000));
       (await etherland.circulatingSupply()).toString().should.equal(eland(1000));
       (await etherland.totalSupply()).toString().should.equal(eland(1e9 - 500));
+      await etherland.approve(user2, eland(500), { from: user1 }).should.be.fulfilled;
+      await etherland.burnFrom(user1, eland(400), { from: user2 }).should.be.fulfilled;
+      (await etherland.balanceOf(user1)).toString().should.equal(eland(1000 - 400));
+      (await etherland.allowance(user1, user2)).toString().should.equal(eland(100));
+      
+
+
     });
 
     it('testing approve and allowances updates functions', async () => {
@@ -95,11 +103,11 @@ contract('Proxy', (accounts) => {
       await etherland.approve(user2, eland(500), { from: user1 }).should.be.fulfilled;
       await etherland.approve(user2, eland(500), { from: user1 }).should.be.fulfilled;
       (await etherland.allowance(user1, user2)).toString().should.equal(eland(500));
-      await etherland.decreaseApproval(user2, eland(151), { from: user1 }).should.be.fulfilled;
+      await etherland.decreaseAllowance(user2, eland(151), { from: user1 }).should.be.fulfilled;
       (await etherland.allowance(user1, user2)).toString().should.equal(eland(349));
-      await etherland.increaseApproval(user2, eland(251), { from: user1 }).should.be.fulfilled;
+      await etherland.increaseAllowance(user2, eland(251), { from: user1 }).should.be.fulfilled;
       (await etherland.allowance(user1, user2)).toString().should.equal(eland(600));
-      await etherland.decreaseApproval(user2, eland(599), { from: user1 }).should.be.fulfilled;
+      await etherland.decreaseAllowance(user2, eland(599), { from: user1 }).should.be.fulfilled;
       (await etherland.allowance(user1, user2)).toString().should.equal(eland(1));
 
     });

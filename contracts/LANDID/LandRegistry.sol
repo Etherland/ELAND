@@ -1,38 +1,15 @@
-import './iLANDID.sol';
-import '../ERC20/MintableToken.sol';
+import '../ERC20/ERC20Mintable.sol';
 
 /**
 * @title Land Registry
 * @dev Etherland - Decentralized Land Registration Protocol
 * @dev Allow ELAND owners to register lands in the Etherland eco-system by minting Etherland ERC721 LANDID NFT
 */
-contract LandRegistry is MintableToken {
-    
-    // Instance of Etherland LANDID NFT Administrator rights verifier
-    iLANDID landid;
-    // address of Etherland LANDID NFT
-    address public landidNftAddress;
-    // address of the wallet dedicated to land registration
-    address internal landRegistration;
-    // Land registry can be opened or closed
-    bool public landRegistryOpened = false;
-    // Land registry rights offers
-    uint[] public recordRightsOffers;
-    // Schema defining a Right to register a new land
-    struct RecordRight {
-        // the block timestamp of the record request
-        uint time;
-        // the tokenId representing the resultant minted LANDID NFT token id
-        uint tokenId;
-        // The new land record right which was purchased in ELAND. Registration rights are considered available when the tokenId is LESS than 1
-        uint right;
-    }
-    // Land registry record rights tracking
-    mapping (address => RecordRight[]) public registryRecordRights;
+contract LandRegistry is ERC20Mintable {
 
     modifier isNftAdmin() {
         landid = iLANDID(landidNftAddress);
-        int16 adminRight = landid.adminRightsOf(msg.sender);
+        int16 adminRight = landid.adminRightsOf(_msgSender());
         require((adminRight > 0) && (adminRight < 3), 'denied : restricted to LANDID NFT admins');
         _;
     }
@@ -84,7 +61,7 @@ contract LandRegistry is MintableToken {
         recordRight.right = recordIndex;
 
         // store record right
-        registryRecordRights[msg.sender].push(recordRight);
+        registryRecordRights[_msgSender()].push(recordRight);
 
         return true;
     }

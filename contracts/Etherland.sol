@@ -1,5 +1,3 @@
-import './Ownable.sol';
-import './ERC20/BurnableToken.sol';
 import './libraries/SafeMath.sol';
 import "./ERC1822/Proxiable.sol";
 import './LANDID/LandRegistry.sol';
@@ -7,35 +5,21 @@ import './LANDID/LandRegistry.sol';
 * @title Etherland
 * @dev Etherland fungible utility token
 */
-contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
+contract Etherland is LandRegistry, Proxiable {
     using SafeMath for uint256;
     
-    /**
-    * @dev Contact initialization state
-    * initialized state is set upon construction
-    * MUST be initialized to be valid
-    */
-    bool public initialized = false;
+    // /**
+    // * @dev Contact initialization state
+    // * initialized state is set upon construction
+    // * MUST be initialized to be valid
+    // */
+    // bool public initialized = false;
 
-    /**
-    * @dev Etherland Token Identification
-    */
-    string public name;
-    string public symbol;
-    uint16 public decimals;
-
-    /**
-    * @dev Etherland Wallets
-    */
-    address public team;
-    address public reserve;
-
-    /**
-    * @dev Maximum Supply
-    *   Represents the maximum amount of tokens the contract will ever mint 
-    * @notice 1 000 000 000 (1 Billion) ELAND tokens are pre-minted upon contract construction
-    */
-    uint256 public maximumSupply;  
+    // /**
+    // * @dev Etherland Wallets
+    // */
+    // address public team;
+    // address public reserve;
 
     /**
     * @return amount representing _percent % of _amount
@@ -50,9 +34,9 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     * @notice called only once in contract lifetime upon migration to chain
     */
     function init(
-        string memory _name, 
-        string memory _symbol, 
-        uint16 _decimals, 
+        string memory name_, 
+        string memory symbol_, 
+        uint8 decimals_, 
         address _owner, 
         address _reserve, 
         address _team
@@ -64,27 +48,37 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
             */
             initialized = true;
             
-            /* give ownership of the contract to _owner */
+            /* 
+                give ownership of the contract to _owner 
+            */
             _transferOwnership(_owner);
+
+            /* 
+                define maximum supply to 1 Billion tokens
+            */
+            uint maximumSupply = 1e9 * 10 ** decimals_;
+
+            /* 
+                definitively end minting of ELAND token by setting cap supply to maximum supply of 1 Billion.
+                total and circulating supply will never ever be higher than the cap 
+            */
+            setImmutableCap(maximumSupply);
             
             /* 
-                set identifiers 
+                set contract identifiers 
             */
-            name = _name;
-            symbol = _symbol;
-            decimals = _decimals;
-
-            /* set maximum supply to 1 Billion tokens */
-            maximumSupply = 1e9 * 10 ** decimals;
+            _name = name_;
+            _symbol = symbol_;
+            _decimals = decimals_;
             
             /*
-                set wallets 
+                set wallets for partionning
             */
             team = _team;
             reserve = _reserve;
             
             /* 
-                supply partitioning 
+                partition the supply 
                     - 20 percent of the supply goes to the reserve wallet
                     - 10 percent of the supply goes to the team wallet
                     - 70 percent of the supply are kept by the owner
@@ -92,12 +86,9 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
             mint(_reserve, percentOf(maximumSupply, 20));
             mint(_team, percentOf(maximumSupply, 10));
             mint(_owner, percentOf(maximumSupply, 70));
+
+            _mintingFinished = true;
             
-            /* 
-                definitively end minting of ELAND token
-                total and circulating supply will never ever be higher than the maximum supply 
-            */
-            finishMinting();
         }
     }
 
@@ -117,7 +108,7 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     * @return the number of circulating ELAND (totalSupply - team - reserve - owner)
     */
     function circulatingSupply() public view returns(uint) {
-        return (totalSupply() - balances[team] - balances[reserve] - balances[owner]);
+        return (totalSupply().sub(balanceOf(team)).sub(balanceOf(reserve)).sub(balanceOf(owner)));
     }
 
    /**
@@ -129,7 +120,7 @@ contract Etherland is Ownable, LandRegistry, BurnableToken, Proxiable {
     function batchTransfer(address[] memory _to, uint _value) public returns(bool) {
         uint ttlRecipients = _to.length;
         require(ttlRecipients > 0, 'at least on recipient must be defined');
-        require(balanceOf(msg.sender) >= (_value.mul(ttlRecipients)), 'batch transfer denied : unsufficient balance');
+        require(balanceOf(_msgSender()) >= (_value.mul(ttlRecipients)), 'batch transfer denied : unsufficient balance');
         for (uint i = 0; i < ttlRecipients; i++) {
             address recipient = _to[i];
             transfer(recipient, _value);
