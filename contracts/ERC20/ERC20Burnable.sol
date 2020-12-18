@@ -1,6 +1,6 @@
 
 
-import "./FullERC20.sol";
+import "./ERC20.sol";
 
 /**
  * @dev Extension of {ERC20} that allows token holders to destroy both their own
