@@ -40,8 +40,8 @@ module.exports = {
       provider: () => {
         return new HDWalletProvider(MNEMONIC, `https://mainnet.infura.io/v3/${INFURA_KEY}`);
       },
-      gas: 4000000,
-      gasPrice: 25000000000, // 25Gwei
+      gas: 6210000,
+      gasPrice: 30000000000, // 25Gwei
     }
   },
   compilers: {

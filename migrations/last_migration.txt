@@ -16,10 +16,10 @@ Migrations dry-run (simulation)
 
    Replacing 'Migrations'
    ----------------------
-   > block number:        7738353
-   > block timestamp:     1608252054
+   > block number:        7743737
+   > block timestamp:     1608333214
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.583122382
+   > balance:             2.517314173
    > gas used:            153502 (0x2579e)
    > gas price:           2 gwei
    > value sent:          0 ETH
@@ -31,49 +31,38 @@ Migrations dry-run (simulation)
 
 2_deploy_contracts.js
 =====================
-*
-Deploying Eland on rinkeby-fork network with construct arguments : {
-  NAME: 'Etherland',
-  SYMBOL: 'ELAND',
-  DECIMALS: 18,
-  OWNER: '0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1',
-  RESERVE_WALLET: '0x754e249F3dD9523cFc68183c47DBcd990C5a2AFe',
-  TEAM_WALLET: '0x73777f8c3225173fcbc747435343c0A724B73fbC'
-} 
-*
-
 
    Replacing 'Etherland'
    ---------------------
-   > block number:        7738355
-   > block timestamp:     1608252067
+   > block number:        7743739
+   > block timestamp:     1608333226
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.578361836
-   > gas used:            2352994 (0x23e762)
+   > balance:             2.511980341
+   > gas used:            2639637 (0x284715)
    > gas price:           2 gwei
    > value sent:          0 ETH
-   > total cost:          0.004705988 ETH
+   > total cost:          0.005279274 ETH
 
 
    Replacing 'Proxy'
    -----------------
-   > block number:        7738356
-   > block timestamp:     1608252125
+   > block number:        7743740
+   > block timestamp:     1608333285
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.577971446
-   > gas used:            195195 (0x2fa7b)
+   > balance:             2.511587971
+   > gas used:            196185 (0x2fe59)
    > gas price:           2 gwei
    > value sent:          0 ETH
-   > total cost:          0.00039039 ETH
+   > total cost:          0.00039237 ETH
 
    -------------------------------------
-   > Total cost:         0.005096378 ETH
+   > Total cost:         0.005671644 ETH
 
 
 Summary
 =======
 > Total deployments:   3
-> Final cost:          0.005403382 ETH
+> Final cost:          0.005978648 ETH
 
 
 
@@ -83,7 +72,7 @@ Starting migrations...
 ======================
 > Network name:    'rinkeby'
 > Network id:      4
-> Block gas limit: 10000163 (0x989723)
+> Block gas limit: 10000000 (0x989680)
 
 
 1_initial_migration.js
@@ -91,13 +80,13 @@ Starting migrations...
 
    Replacing 'Migrations'
    ----------------------
-   > transaction hash:    0x3af9832730bf42b3d9216addaa49540327cace6e069ea948dc45e5df7dc2e2e6
-   > Blocks: 2            Seconds: 16
-   > contract address:    0xE2713Fd071f9fe56ED2Ec45d688b34cc5CD7c431
-   > block number:        7738359
-   > block timestamp:     1608252158
+   > transaction hash:    0xc5033002c9c05a1ecda9157b2c128531bbf67859223f48e8bfa2525d990ec1a8
+   > Blocks: 1            Seconds: 8
+   > contract address:    0x8107B260cd5672B428A5092FAd5deEA0f3c9c27c
+   > block number:        7743742
+   > block timestamp:     1608333306
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.580059346
+   > balance:             2.514251137
    > gas used:            168502 (0x29236)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -112,56 +101,44 @@ Starting migrations...
 
 2_deploy_contracts.js
 =====================
-*
-Deploying Eland on rinkeby network with construct arguments : {
-  NAME: 'Etherland',
-  SYMBOL: 'ELAND',
-  DECIMALS: 18,
-  OWNER: '0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1',
-  RESERVE_WALLET: '0x754e249F3dD9523cFc68183c47DBcd990C5a2AFe',
-  TEAM_WALLET: '0x73777f8c3225173fcbc747435343c0A724B73fbC'
-} 
-*
-
 
    Replacing 'Etherland'
    ---------------------
-   > transaction hash:    0x6ce9c3e5d07e43526951c3336fdbd24c070a30316d0901369573c87cf16cd0ee
-   > Blocks: 0            Seconds: 12
-   > contract address:    0xFE52ddd51f7Db45330852231A67c57b8cE95FBdC
-   > block number:        7738361
-   > block timestamp:     1608252188
+   > transaction hash:    0x70c4c5bb22593c3ac2364fcdc05495bb5241a8b95dadf155e4eb01267b1f17f0
+   > Blocks: 1            Seconds: 12
+   > contract address:    0x2d3134320944CD813b4e353946346a1abBd86e1a
+   > block number:        7743744
+   > block timestamp:     1608333336
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.531289886
-   > gas used:            2396194 (0x249022)
+   > balance:             2.459964817
+   > gas used:            2672037 (0x28c5a5)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.04792388 ETH
+   > total cost:          0.05344074 ETH
 
 
    Replacing 'Proxy'
    -----------------
-   > transaction hash:    0x9d12f75f01f84cf867180dfc71dab45e20cfd65c1d4703639fb1a2080dca02b2
-   > Blocks: 0            Seconds: 12
-   > contract address:    0x511f8fa4E7373408A37a1afE91393dbBc252362f
-   > block number:        7738362
-   > block timestamp:     1608252203
+   > transaction hash:    0x157a258453c1b5ff744a9861f514f5f88cb70c7e120a549af9da974d284e7a3f
+   > Blocks: 0            Seconds: 8
+   > contract address:    0xF3381F36a914C295Bce05Ebf3ce56d5292a2a74e
+   > block number:        7743745
+   > block timestamp:     1608333351
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.523485986
-   > gas used:            390195 (0x5f433)
+   > balance:             2.452441117
+   > gas used:            376185 (0x5bd79)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.0078039 ETH
+   > total cost:          0.0075237 ETH
 
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:          0.05572778 ETH
+   > Total cost:          0.06096444 ETH
 
 
 Summary
 =======
 > Total deployments:   3
-> Total Gas :          5656582 gwei
-> Final cost:          0.05909782 ETH
+> Final cost:          0.06433448 ETH
