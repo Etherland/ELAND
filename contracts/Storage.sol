@@ -2,9 +2,9 @@ import './LANDID/iLANDID.sol';
 
 contract Storage {
 
-// 
-// Ownable.sol
-//
+    // 
+    // Ownable.sol
+    //
     /**
     * @dev Etherland owner address
     */
@@ -19,9 +19,9 @@ contract Storage {
     */
     bool public standalone = false;
 
-//
-// ERC20.sol
-//
+    //
+    // ERC20.sol
+    //
     mapping (address => uint256) internal _balances;
     mapping (address => mapping (address => uint256)) internal _allowances;
     uint256 internal _totalSupply;
@@ -29,11 +29,15 @@ contract Storage {
     string internal _symbol;
     uint8 internal _decimals;
 
-//
-// ERC20Capped.sol
-//
+    //
+    // ERC20Capped.sol
+    //
     uint256 internal _cap;
     // Instance of Etherland LANDID NFT Administrator rights verifier
+
+    //
+    // LandRegistry.sol
+    //
     iLANDID landid;
     // address of Etherland LANDID NFT
     address public landidNftAddress;
@@ -55,14 +59,14 @@ contract Storage {
     // Land registry record rights tracking
     mapping (address => RecordRight[]) public registryRecordRights;
 
-//
-// ERC20Mintable.sol
-//
+    //
+    // ERC20Mintable.sol
+    //
     bool _mintingFinished = false;
 
-// 
-// Etherland.sol
-//
+    // 
+    // Etherland.sol
+    //
     /**
     * @dev Contact initialization state
     * initialized state is set upon construction

@@ -6,21 +6,6 @@ import './Context.sol';
 * functions, this simplifies the implementation of "user permissions".
 */
 contract Ownable is Context {
-    // /**
-    // * @dev Etherland owner address
-    // */
-    // address public owner;
-
-    // /**
-    // * @dev Generated random salt acting in the safecheck mechanism when renouncing contract ownership 
-    // */
-    // bytes32 internal relinquishmentToken;
-    
-    // /**
-    // * @dev Standalone mode
-    // * @notice see renounceOwnership method's notice below
-    // */
-    // bool public standalone = false;
 
     event OwnershipRenounced(address indexed previousOwner);
     event OwnershipTransferred(

@@ -2,24 +2,18 @@ import './libraries/SafeMath.sol';
 import "./ERC1822/Proxiable.sol";
 import './LANDID/LandRegistry.sol';
 /**
-* @title Etherland
-* @dev Etherland fungible utility token
+ * @title Etherland
+ * @dev ERC-20 Compliant ELAND token
+ * @author Mathieu Lecoq
+ * december 20th 2020 
+ *
+ * @dev Property
+ * all rights are reserved to Etherland ltd
+ *
+ * @dev deployed with solc 0.7.5
 */
 contract Etherland is LandRegistry, Proxiable {
     using SafeMath for uint256;
-    
-    // /**
-    // * @dev Contact initialization state
-    // * initialized state is set upon construction
-    // * MUST be initialized to be valid
-    // */
-    // bool public initialized = false;
-
-    // /**
-    // * @dev Etherland Wallets
-    // */
-    // address public team;
-    // address public reserve;
 
     /**
     * @return amount representing _percent % of _amount

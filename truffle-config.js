@@ -34,14 +34,16 @@ module.exports = {
       },
       network_id: '*',
       networkCheckTimeout: 10000000,
+      skipDryRun: true
     },
     live: {
       network_id: 1,
       provider: () => {
         return new HDWalletProvider(MNEMONIC, `https://mainnet.infura.io/v3/${INFURA_KEY}`);
       },
-      gas: 6210000,
-      gasPrice: 30000000000, // 25Gwei
+      gas: 4000000,   // 3216724
+      gasPrice: 30000000000, // 30Gwei
+      skipDryRun: true
     }
   },
   compilers: {
