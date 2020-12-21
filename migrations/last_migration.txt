@@ -1,7 +1,11 @@
+21 dec 2020
+
+
+/***************************************** TESTNET *****************************************/
+
+> Artifacts written to /Users/proapps/Documents/Mat/Apps/Etherland/Eland-ERC20/build/contracts
 > Compiled successfully using:
    - solc: 0.7.5+commit.eb77ed08.Emscripten.clang
-
-
 
 Starting migrations...
 ======================
@@ -15,18 +19,17 @@ Starting migrations...
 
    Deploying 'Migrations'
    ----------------------
-   > transaction hash:    0x35e08eb3ff1bcba5962cf26cc26f69299d391546d1e41b53a4db525897dce7e0
-   > Blocks: 0            Seconds: 4
-   > contract address:    0x7bc0eE45d3f4Ead719298BBdC7A3bc1561d14aA6
-   > block number:        7755006
-   > block timestamp:     1608503010
+   > transaction hash:    0xb05aca3284288ee1d444c3ea074d9a24861a73ec1b3b82aac58ffeff01eda36a
+   > Blocks: 2            Seconds: 16
+   > contract address:    0x37fcc641aD2Ccde5aC5F6100f23ECBFeBD1A771f
+   > block number:        7755230
+   > block timestamp:     1608506384
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.380826436
+   > balance:             2.315100796
    > gas used:            168502 (0x29236)
    > gas price:           20 gwei
    > value sent:          0 ETH
    > total cost:          0.00337004 ETH
-
 
    > Saving migration to chain.
    > Saving artifacts
@@ -39,13 +42,13 @@ Starting migrations...
 
    Deploying 'Etherland'
    ---------------------
-   > transaction hash:    0x65460161c229c5dcadab91ac80c614adcfac731fc0c615aaabed983357c7b0a5
-   > Blocks: 0            Seconds: 12
-   > contract address:    0xD935Ad40576E7d897dC40852f90B76cb4A0Caa41
-   > block number:        7755008
-   > block timestamp:     1608503040
+   > transaction hash:    0x327d7425965fc4076a1bc18a7aaf1a260965ba8c58442acd626f964fdc0b536f
+   > Blocks: 1            Seconds: 8
+   > contract address:    0x857e266c29b396d2aaCa883EEfc511a71627FAA5
+   > block number:        7755232
+   > block timestamp:     1608506414
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.326540116
+   > balance:             2.260814476
    > gas used:            2672037 (0x28c5a5)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -54,13 +57,13 @@ Starting migrations...
 
    Deploying 'Proxy'
    -----------------
-   > transaction hash:    0x043e8edc4433731bc694cab3a6c16f699b883e36fe42f92f36364114ea2f25e7
+   > transaction hash:    0x4b5b4fed204e717a459bfe6a09b503d2a86ead5e2a660de73c2258637951e434
    > Blocks: 0            Seconds: 8
-   > contract address:    0x2E7785Da4cE473E418a4D7b69175971680aA7c1C
-   > block number:        7755009
-   > block timestamp:     1608503055
+   > contract address:    0xa4b6e8999340117d103A104e1c1D65d0C76dbFc5
+   > block number:        7755233
+   > block timestamp:     1608506429
    > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
-   > balance:             2.319016416
+   > balance:             2.253290776
    > gas used:            376185 (0x5bd79)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -77,3 +80,80 @@ Summary
 =======
 > Total deployments:   3
 > Final cost:          0.06433448 ETH
+
+
+
+
+/***************************************** LIVE *****************************************/
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+
+Starting migrations...
+======================
+> Network name:    'live'
+> Network id:      1
+> Block gas limit: 12512209 (0xbeebd1)
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > transaction hash:    0x49c429c44c9be4781d71ed5f802aedeaa2ec0253c916169f5c929eb9a3b91c4e
+   > Blocks: 3            Seconds: 20
+   > contract address:    0xE5e647a32DeaBA5715D16F927A653d26Bb610A1C
+   > block number:        11493253
+   > block timestamp:     1608507491
+   > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
+   > balance:             0.199219429999558949
+   > gas used:            168502 (0x29236)
+   > gas price:           30 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00505506 ETH
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00505506 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'Etherland'
+   ---------------------
+   > transaction hash:    0xb4b7fd02fe6a975d3b4e71a76fcbb68d5a5565c4fc1e0af0e9480c842ae2d554
+   > Blocks: 1            Seconds: 4
+   > contract address:    0x1ab8Ee0cbC2D2A2F0E09a094358f3b0aAc275268
+   > block number:        11493259
+   > block timestamp:     1608507532
+   > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
+   > balance:             0.117789949999558949
+   > gas used:            2672037 (0x28c5a5)
+   > gas price:           30 gwei
+   > value sent:          0 ETH
+   > total cost:          0.08016111 ETH
+
+   Deploying 'Proxy'
+   -----------------
+   > transaction hash:    0x5b6fcf5b0a9eb801b7e914f972dcaa7bfb3e473125bdc34a18920d75ec0a6996
+   > Blocks: 3            Seconds: 28
+   > contract address:    0x33E07f5055173cF8FeBedE8B21B12D1e2b523205
+   > block number:        11493353
+   > block timestamp:     1608508620
+   > account:             0x21fAC178E0b0df2Db51A06d52B32DE4479a8b3F1
+   > balance:             0.106504399999558949
+   > gas used:            376185 (0x5bd79)
+   > gas price:           30 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01128555 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.09650172 ETH
