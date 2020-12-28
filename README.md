@@ -115,5 +115,5 @@ run ```npm install -g npm@6.14.8```
 - node : 14.15.0
 run ```nvm use 14.15.0```
 # 
-*Something went wrong ? support@proapps.fr* 
+*contact: support@etherland.io* 
 
