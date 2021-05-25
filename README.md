@@ -29,9 +29,8 @@
 ### `INTERNAL SOURCE`
 * `LandRegistry.sol` *Etherland Decentralized Land Registration Protocol*
 	- Uses `iLANDID.sol` interface to get the ability to call the `hasAdminRights` function of Etherland LANDID Non-Fungible-Token smart-contract at address retrievable with the  `landidNftAddress` getter function.
-	- On the Etherland Metaverse, any token holder has the ability to register a new land, to do so, they must exchange *ELAND* against `Land Record Rights` which are
-	a sub-asset of the ecosystem. 
-	- Land Record Rights offers and prices in ELAND are stored on-chain and can be retrieved from a method named `recordRightsOffers` *(rights prices are indexed)* 
+	- On the Etherland Metaverse, any token holder has the ability to register a new land, to do so, they must exchange *ELAND* Ethereum or any other Token displayed on the offer of Opensea marketplace.
+	- Land Record Rights offers and prices in ELAND or ETH or other Tokens are stored on-chain and can be retrieved from a method named `recordRightsOffers` *(rights prices are indexed)* 
 	- Those rights are detailed on our website at https://etherland.io/dashboard/?ua=newitem
 	- `REGISTER A NEW LAND` *request the mint of an Etherland LANDID Non-Fungible-Token *use-case**
 		- Making a new record in the Land Registry is reserved to ELAND owners and doable in a few simple steps :
@@ -60,19 +59,19 @@
 
 	4. CIRCULATING SUPPLY
 		The number of circulating ELAND :
-		- totalSupply - team - reserve - owner
+		= totalSupply - team and advisors - reserve - Etherland wallet - Credit carbon reward
 
 	5. MINTING FINISHED
 		In concern for transaprency, we've made available a getter returning a boolean that *must* be positive with value "true", indicating that its programmatically impossible to mint more tokens than the cap
 
-	5. BURN
+	6. BURN
 		- Any token holder has the ability to burn its own tokens, 
 		- *Burn operations remove the tokens from the total supply*
 
-	6. APPROVE
+	7. APPROVE
 		- Any token holder has the ability to allow a tiers to spend/burn its own tokens
 
-	7. LAND REGISTRY **see LandRegistry definition above**
+	8. LAND REGISTRY **see LandRegistry definition above**
 
 
 	#### FLOW UPON CONTRACT CONSTRUCTION:
