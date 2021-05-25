@@ -30,11 +30,11 @@
 * `LandRegistry.sol` *Etherland Decentralized Land Registration Protocol*
 	- Uses `iLANDID.sol` interface to get the ability to call the `hasAdminRights` function of Etherland LANDID Non-Fungible-Token smart-contract at address retrievable with the  `landidNftAddress` getter function.
 	- On the Etherland Metaverse, any token holder has the ability to register a new land, to do so, they must exchange *ELAND* Ethereum or any other Token displayed on the offer of Opensea marketplace.
-	- Land Record Rights offers and prices in ELAND or ETH or other Tokens are stored on-chain and can be retrieved from a method named `recordRightsOffers` *(rights prices are indexed)* 
+	- Land Record Rights offers and prices are in ELAND or ETH or other Tokens.
 	- Those rights are detailed on our website at https://etherland.io/dashboard/?ua=newitem
 	- `REGISTER A NEW LAND` *request the mint of an Etherland LANDID Non-Fungible-Token *use-case**
 		- Making a new record in the Land Registry is doable in a few simple steps :
-		1. Select a `Record Right` among the offers at https://etherland.io/dashboard/?ua=newitem
+		1. Select a `Record Right` among the offers at https://etherland.world/register-a-place/
 		2. Fill the form and validate all record steps
 		3. Validate purchase: A transaction calling the function `registerLand` is prompted and must be accepted/successfull
 		4. Corresponding `Record Right` is attributed to the caller and safely stored on-chain
